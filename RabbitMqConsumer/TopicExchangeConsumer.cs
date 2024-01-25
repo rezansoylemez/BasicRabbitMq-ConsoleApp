@@ -1,21 +1,21 @@
-﻿using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
+﻿using RabbitMQ.Client.Events;
+using RabbitMQ.Client;
 using System.Text;
 
 namespace RabbitMqConsumer;
 
-public static class DirectExchangeConsumer
+public  static class TopicExchangeConsumer
 {
     public static void Consume(IModel channel)
     {
-        channel.ExchangeDeclare("test-direct-exchange" , ExchangeType.Direct);
-        channel.QueueDeclare("test-direct-queue",
+        channel.ExchangeDeclare("test-topic-exchange", ExchangeType.Topic);
+        channel.QueueDeclare("test-topic-queue",
         durable: true,
-        exclusive: false,
+        exclusive: false, 
         autoDelete: false,
         arguments: null);
 
-        channel.QueueBind("test-direct-exchange", "test-direct-queue", "account.init");
+        channel.QueueBind("test-topic-exchange", "test-topic-queue", "account.*");
 
         channel.BasicQos(0, 10, false);
 
@@ -28,7 +28,7 @@ public static class DirectExchangeConsumer
             Console.WriteLine(message);
         };
 
-        channel.BasicConsume("test-direct-queue",   true, consumer);
+        channel.BasicConsume("test-topic-queue", true, consumer);
 
         Console.WriteLine("Consumer Started");
         Console.ReadLine();

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RabbitMqProducer;
 
-public static class TopicExchangePublisher
+public static class HeaderExchangePublisher
 {
     public static void Publish(IModel channel)
     {
@@ -14,7 +14,7 @@ public static class TopicExchangePublisher
         {
             {"x-message-ttl", 30000 }
         };
-        channel.ExchangeDeclare("test-topic-exchange", ExchangeType.Topic, arguments: ttl);
+        channel.ExchangeDeclare("test-header-exchange", ExchangeType.Headers, arguments: ttl);
 
 
 
@@ -28,8 +28,10 @@ public static class TopicExchangePublisher
 
             var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
 
+            var properties = channel.CreateBasicProperties();
+            properties.Headers = new Dictionary<string, object> { { "account", "new" } };
 
-            channel.BasicPublish("test-topic-exchange", "account.init", null, body);
+            channel.BasicPublish("test-header-exchange",string.Empty,properties, body);
 
             count++;
             Thread.Sleep(1000);

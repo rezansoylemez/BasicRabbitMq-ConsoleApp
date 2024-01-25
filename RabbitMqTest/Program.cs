@@ -20,4 +20,6 @@ using var channel = connection.CreateModel();
 
 //TopicExchangePublisher.Publish(channel);
 
-HeaderExchangePublisher.Publish(channel);
+//HeaderExchangePublisher.Publish(channel);
+
+FanoutExchangePublisher.Publish(channel);

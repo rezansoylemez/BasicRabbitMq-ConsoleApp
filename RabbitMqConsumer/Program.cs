@@ -19,4 +19,6 @@ using var channel = connection.CreateModel();
 
 //TopicExchangeConsumer.Consume(channel);
 
-HeaderExchangeConsumer.Consume(channel);
+//HeaderExchangeConsumer.Consume(channel);
+
+FanoutExchangeConsumer.Consume(channel);

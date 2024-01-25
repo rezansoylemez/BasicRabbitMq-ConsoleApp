@@ -15,7 +15,7 @@ public  static class TopicExchangeConsumer
         autoDelete: false,
         arguments: null);
 
-        channel.QueueBind("test-topic-exchange", "test-topic-queue", "account.*");
+        channel.QueueBind("test-topic-queue", "test-topic-exchange", "account.*");
 
         channel.BasicQos(0, 10, false);
 

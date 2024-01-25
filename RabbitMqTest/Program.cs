@@ -18,4 +18,6 @@ using var channel = connection.CreateModel();
 
 //DirectExchangePublisher.Publish(channel);
 
-TopicExchangePublisher.Publish(channel);
+//TopicExchangePublisher.Publish(channel);
+
+HeaderExchangePublisher.Publish(channel);

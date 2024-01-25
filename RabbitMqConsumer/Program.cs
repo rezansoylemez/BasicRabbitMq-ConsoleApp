@@ -17,4 +17,6 @@ using var channel = connection.CreateModel();
 
 //DirectExchangeConsumer.Consume(channel);
 
-TopicExchangeConsumer.Consume(channel);
+//TopicExchangeConsumer.Consume(channel);
+
+HeaderExchangeConsumer.Consume(channel);
